@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { DriverAssignmentEntity } from './driverAssignment.entity';
 import { PassengerEntity } from './passenger.entity';
 
@@ -15,7 +21,7 @@ export class TripEntity {
   @JoinColumn({ name: 'passenger_id' })
   passenger: PassengerEntity;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 100 })
   state: string;
 
   @Column({ type: 'timestamp' })

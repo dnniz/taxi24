@@ -1,5 +1,5 @@
 import { Connection } from 'typeorm';
-import { ModuleAEntity } from '../module-a/entities/module-a.entity'; // Importa tus entidades aquí
+// import { ModuleAEntity } from './' // Importa tus entidades aquí
 
 export const databaseProviders = [
   {

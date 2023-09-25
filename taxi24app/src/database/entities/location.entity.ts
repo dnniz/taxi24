@@ -16,7 +16,7 @@ export class LocationEntity {
   @JoinColumn({ name: 'trip_id' })
   trip: TripEntity;
 
-  @Column({ type: 'geography', spatialFeatureType: 'Point', srid: 4326 })
+  @Column({ type: 'geometry', spatialFeatureType: 'Point', srid: 4326 })
   coordenate: { type: string; coordinates: number[] };
 
   @Column({ type: 'varchar', length: 100 })

@@ -1,4 +1,4 @@
-import { Connection } from 'typeorm';
+import { Connection } from 'typeorm'
 // import { ModuleAEntity } from './' // Importa tus entidades aquí
 
 export const databaseProviders = [
@@ -7,4 +7,4 @@ export const databaseProviders = [
     useFactory: (connection: Connection) => connection,
     inject: ['DATABASE_CONNECTION'],
   },
-];
+]

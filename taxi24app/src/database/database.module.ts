@@ -1,6 +1,6 @@
-import { Module } from '@nestjs/common';
-import { Database } from './database';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { Module } from '@nestjs/common'
+import { Database } from './database'
+import { TypeOrmModule } from '@nestjs/typeorm'
 import {
   ControllerEntity,
   DriverAssignmentEntity,
@@ -9,7 +9,7 @@ import {
   PilotTripEntity,
   TripEntity,
   VehicleUnitEntity,
-} from './entities'; // Importa otras entidades si las tienes
+} from './entities' // Importa otras entidades si las tienes
 
 @Module({
   providers: [Database],

@@ -4,27 +4,27 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
-} from 'typeorm';
-import { TripEntity } from './trip.entity';
+} from 'typeorm'
+import { TripEntity } from './trip.entity'
 
 @Entity('location')
 export class LocationEntity {
   @PrimaryGeneratedColumn()
-  location_id: number;
+  location_id: number
 
   @ManyToOne(() => TripEntity, { eager: true })
   @JoinColumn({ name: 'trip_id' })
-  trip: TripEntity;
+  trip: TripEntity
 
   @Column({ type: 'geometry', spatialFeatureType: 'Point', srid: 4326 })
-  coordenate: { type: string; coordinates: number[] };
+  coordenate: { type: string; coordinates: number[] }
 
   @Column({ type: 'varchar', length: 100 })
-  country_name: string;
+  country_name: string
 
   @Column({ type: 'varchar', length: 100 })
-  city_name: string;
+  city_name: string
 
   @Column({ type: 'varchar', length: 100 })
-  part_trip: string;
+  part_trip: string
 }

@@ -1,19 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 
 @Entity('passenger')
 export class PassengerEntity {
   @PrimaryGeneratedColumn()
-  passenger_id: number;
+  passenger_id: number
 
   @Column({ type: 'varchar', length: 255 })
-  name: string;
+  name: string
 
   @Column({ type: 'varchar', length: 100 })
-  doc_number: string;
+  doc_number: string
 
   @Column({ type: 'varchar', length: 25, nullable: true })
-  phone: string;
+  phone: string
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  email: string;
+  email: string
 }

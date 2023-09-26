@@ -4,27 +4,27 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
-} from 'typeorm';
-import { TripEntity } from './trip.entity';
+} from 'typeorm'
+import { TripEntity } from './trip.entity'
 
 @Entity('pilot_trip')
 export class PilotTripEntity {
   @PrimaryGeneratedColumn()
-  pilot_trip_id: number;
+  pilot_trip_id: number
 
   @ManyToOne(() => TripEntity, { eager: true })
   @JoinColumn({ name: 'trip_id' })
-  trip: TripEntity;
+  trip: TripEntity
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
-  distance: number;
+  distance: number
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
-  offer: number;
+  offer: number
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
-  cost: number;
+  cost: number
 
   @Column({ type: 'timestamp' })
-  arrive_time: Date;
+  arrive_time: Date
 }

@@ -13,11 +13,11 @@ export class TripEntity {
   @PrimaryGeneratedColumn()
   trip_id: number
 
-  @ManyToOne(() => DriverAssignmentEntity, { eager: true })
+  @ManyToOne(() => DriverAssignmentEntity, { eager: false })
   @JoinColumn({ name: 'driver_assignment_id' })
   driver_assignment: DriverAssignmentEntity
 
-  @ManyToOne(() => PassengerEntity, { eager: true })
+  @ManyToOne(() => PassengerEntity, { eager: false })
   @JoinColumn({ name: 'passenger_id' })
   passenger: PassengerEntity
 

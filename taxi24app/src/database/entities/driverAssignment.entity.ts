@@ -17,7 +17,7 @@ export class DriverAssignmentEntity {
   @JoinColumn({ name: 'controller_id' })
   controller?: ControllerEntity
 
-  @ManyToOne(() => VehicleUnitEntity, { eager: true })
+  @ManyToOne(() => VehicleUnitEntity, { eager: false })
   @JoinColumn({ name: 'vehicle_unit_id' })
   vehicle_unit?: VehicleUnitEntity
 

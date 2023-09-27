@@ -22,7 +22,7 @@ export class DriverRepository {
     return result.affected
   }
 
-  async findById(driverId: number): Promise<any> {
+  async findById(driverId: number): Promise<DriverAssignmentEntity | null> {
     return await this.dao.findOneBy({ driver_assignment_id: driverId })
   }
 

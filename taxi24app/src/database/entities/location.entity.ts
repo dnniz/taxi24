@@ -12,7 +12,7 @@ export class LocationEntity {
   @PrimaryGeneratedColumn()
   location_id: number
 
-  @ManyToOne(() => TripEntity, { eager: true })
+  @ManyToOne(() => TripEntity, { eager: false })
   @JoinColumn({ name: 'trip_id' })
   trip: TripEntity
 

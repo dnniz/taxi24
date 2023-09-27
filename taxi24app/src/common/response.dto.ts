@@ -10,8 +10,6 @@ export class ResponseDto<T> {
   @ApiProperty({ default: 1, description: 'Código de error' })
   errorCode: number
 
-  // Puedes agregar otros campos importantes aquí
-
   constructor(data: T, message: string = '', errorCode: number = 1) {
     this.data = data
     this.message = message

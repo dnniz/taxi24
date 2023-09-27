@@ -9,7 +9,7 @@ import {
   PilotTripEntity,
   TripEntity,
   VehicleUnitEntity,
-} from './entities' // Importa otras entidades si las tienes
+} from './entities'
 
 @Module({
   providers: [Database],
@@ -31,6 +31,7 @@ import {
         VehicleUnitEntity,
       ],
       synchronize: true,
+      logging: true,
     }),
   ],
   exports: [TypeOrmModule],

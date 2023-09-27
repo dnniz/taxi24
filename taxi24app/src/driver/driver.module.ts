@@ -7,7 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { DriverAssignmentEntity } from 'src/database/entities'
 
 @Module({
-  imports:[TypeOrmModule.forFeature([DriverAssignmentEntity])],
+  imports: [TypeOrmModule.forFeature([DriverAssignmentEntity])],
   controllers: [DriverController],
   providers: [
     DriverService,

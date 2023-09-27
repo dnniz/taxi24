@@ -5,16 +5,27 @@ import { driverResponseDto } from './dto/driverResponse.dto'
 import { DriverService } from './driver.service'
 
 @ApiTags('drivers')
-@Controller('driver')
+@Controller('drivers')
 export class DriverController {
   constructor(private readonly driverService: DriverService) {}
 
   @Get('/')
   @HttpCode(200)
-  async findAvaliableDrivers(): Promise<ResponseDto<driverResponseDto[]>> {
+  async allDrivers(): Promise<ResponseDto<driverResponseDto[]>> {
+    const drivers = await this.driverService.searchAllDrivers()
+
+    return new ResponseDto(drivers, 'Listado de todos los Conductores')
+  }
+
+  @Get('/available')
+  @HttpCode(200)
+  async findAvailableDrivers(): Promise<ResponseDto<driverResponseDto[]>> {
     const drivers = await this.driverService.searchAvailableDrivers()
 
-    return new ResponseDto(drivers, 'Drivers disponibles obtenidos con éxito')
+    return new ResponseDto(
+      drivers,
+      'Conductores disponibles obtenidos con éxito',
+    )
   }
 
   @Get('/:driverId')

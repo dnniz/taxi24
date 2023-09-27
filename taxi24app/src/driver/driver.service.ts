@@ -12,6 +12,14 @@ export class DriverService {
     private readonly driverRepository: DriverRepository,
   ) {}
 
+  async searchAllDrivers(): Promise<driverResponseDto[]> {
+    const result = await this.driverRepository.findBySpecification({})
+
+    if (result.length === 0) return []
+
+    return result.map((x) => mapDriverEntityToDto(x))
+  }
+
   async searchAvailableDrivers(): Promise<driverResponseDto[]> {
     const result = await this.driverRepository.findBySpecification({
       available: true,

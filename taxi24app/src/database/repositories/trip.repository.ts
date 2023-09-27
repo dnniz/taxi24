@@ -15,12 +15,19 @@ export class TripRepository {
     return await this.dao.save(entity)
   }
 
-  async update(id: number, entity: TripEntity): Promise<any> {
+  async update(id: number, entity: TripEntity): Promise<number> {
     const result = await this.dao.update(id, entity)
     return result.affected
   }
 
   async findById(tripId: number): Promise<any> {
     return await this.dao.findOneBy({ trip_id: tripId })
+  }
+
+  async findBySpecification(
+    entity: TripEntity,
+    relations?: string[],
+  ): Promise<TripEntity[]> {
+    return await this.dao.find({ where: { ...entity }, relations })
   }
 }

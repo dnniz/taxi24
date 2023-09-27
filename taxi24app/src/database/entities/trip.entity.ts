@@ -11,22 +11,22 @@ import { PassengerEntity } from './passenger.entity'
 @Entity('trip')
 export class TripEntity {
   @PrimaryGeneratedColumn()
-  trip_id: number
+  trip_id?: number
 
   @ManyToOne(() => DriverAssignmentEntity, { eager: false })
   @JoinColumn({ name: 'driver_assignment_id' })
-  driver_assignment: DriverAssignmentEntity
+  driver_assignment?: DriverAssignmentEntity
 
   @ManyToOne(() => PassengerEntity, { eager: false })
   @JoinColumn({ name: 'passenger_id' })
-  passenger: PassengerEntity
+  passenger?: PassengerEntity
 
   @Column({ type: 'varchar', length: 100 })
-  state: string
+  state?: string
 
   @Column({ type: 'timestamp' })
-  start_datetime_trip: Date
+  start_datetime_trip?: Date
 
   @Column({ type: 'timestamp', nullable: true })
-  end_datetime_trip: Date
+  end_datetime_trip?: Date
 }

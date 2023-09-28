@@ -39,13 +39,26 @@ export class DriverService {
     return new ResponseDto(mapDriverEntityToDto(result), 'Driver Found')
   }
 
-  async searchNearByDrivers(): Promise<driverResponseDto[]> {
-    const result = await this.driverRepository.findBySpecification({
-      available: true,
-    })
+  async searchNearByDrivers(
+    latitud: string,
+    longitud: string,
+  ): Promise<driverResponseDto[]> {
+    const nearRadioLocation = 3000
+    const historyDriversNearBy = await this.driverRepository.searchNearLocation(
+      latitud,
+      longitud,
+      nearRadioLocation,
+    )
 
-    if (result.length === 0) return []
+    const nearByDriversIds = historyDriversNearBy.map(
+      (x) => x.driver_assignment_id,
+    )
 
-    return result.map((x) => mapDriverEntityToDto(x))
+    const nearByDrivers =
+      await this.driverRepository.findAllByIds(nearByDriversIds)
+
+    if (nearByDrivers.length === 0) return []
+
+    return nearByDrivers.map((x) => mapDriverEntityToDto(x))
   }
 }

@@ -5,16 +5,12 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm'
-// import { TripEntity } from './trip.entity'
 import { DriverAssignmentEntity } from './driverAssignment.entity'
 
 @Entity('history_driver_location')
-export class LocationEntity {
+export class HistoryDriverLocationEntity {
   @PrimaryGeneratedColumn()
   history_driver_location_id: number
-
-  // @Column({ nullable: true })
-  // driver_assignment_id: number
 
   @ManyToOne(() => DriverAssignmentEntity, { eager: false })
   @JoinColumn({ name: 'driver_assignment_id' })

@@ -1,7 +1,7 @@
 // Infrastructure
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { In, Repository } from 'typeorm'
 import { DriverAssignmentEntity } from '../entities'
 
 @Injectable()
@@ -30,11 +30,41 @@ export class DriverRepository {
     entity: DriverAssignmentEntity,
   ): Promise<DriverAssignmentEntity[]> {
     return await this.dao.find({ where: { ...entity } })
-    // return await this.dao.find({
-    //   where: {
-    //     available: entity.available,
-    //     driver_assignment_id: entity.driver_assignment_id,
-    //   },
-    // })
+  }
+
+  async findAllByIds(driversIds: number[]): Promise<DriverAssignmentEntity[]> {
+    return await this.dao.find({
+      where: {
+        driver_assignment_id: In(driversIds),
+      },
+    })
+  }
+
+  async searchNearLocation(
+    latitud: string,
+    longitud: string,
+    radioInKilometers: number,
+  ): Promise<DriverAssignmentEntity[]> {
+    const location = `POINT(${longitud} ${latitud})` //SRID=4326;
+    const lastAvailableLocationTime = new Date()
+    lastAvailableLocationTime.setMinutes(
+      lastAvailableLocationTime.getMinutes() - 2,
+    )
+    const formattedDateTime = lastAvailableLocationTime
+      .toISOString()
+      .slice(0, 19)
+      .replace('T', ' ')
+
+    const KILOMETERS_TO_DEGREES = 111.32
+
+    const radioInDegrees = radioInKilometers / KILOMETERS_TO_DEGREES
+
+    const query = `
+    SELECT *
+    FROM history_driver_location AS location
+    WHERE ST_Distance(location.coordenate, ST_GeomFromText('${location}', 4326)) < ${radioInDegrees}
+    AND location.location_datetime >= '${formattedDateTime}';`
+
+    return await this.dao.query(query)
   }
 }

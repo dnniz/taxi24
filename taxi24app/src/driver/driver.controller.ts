@@ -35,4 +35,17 @@ export class DriverController {
   ): Promise<ResponseDto<driverResponseDto>> {
     return await this.driverService.searchDriverById(driverId)
   }
+
+  @Get('/nearby/latitude/:lat/longitude/:long')
+  @HttpCode(200)
+  async findNearBy(
+    @Param('lat') latitude: string,
+    @Param('long') longitude: string,
+  ): Promise<ResponseDto<driverResponseDto[]>> {
+    const drivers = await this.driverService.searchNearByDrivers(
+      latitude,
+      longitude,
+    )
+    return new ResponseDto(drivers, 'Drivers nearby')
+  }
 }

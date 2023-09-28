@@ -9,6 +9,7 @@ import {
   PilotTripEntity,
   TripEntity,
   VehicleUnitEntity,
+  HistoryDriverLocationEntity,
 } from './entities'
 
 @Module({
@@ -29,6 +30,7 @@ import {
         PilotTripEntity,
         TripEntity,
         VehicleUnitEntity,
+        HistoryDriverLocationEntity,
       ],
       synchronize: true,
       logging: true,

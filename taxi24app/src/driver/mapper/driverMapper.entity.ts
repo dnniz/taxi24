@@ -8,6 +8,6 @@ export const mapDriverEntityToDto = (
     driverId: entity.driver_assignment_id,
     licenseNumber: entity.driver.license_number,
     names: entity.driver.name,
-    phoneEnterprise: entity.driver.phone_enterprise_number
+    phoneEnterprise: entity.driver.phone_enterprise_number,
   }
 }

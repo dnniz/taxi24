@@ -1,9 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import { PersonBaseEntity } from './person.base.entity'
 
-@Entity('controller')
-export class ControllerEntity {
+@Entity('driver')
+export class DriverEntity extends PersonBaseEntity {
   @PrimaryGeneratedColumn()
-  controller_id: number
+  driver_id: number
 
   @Column({ type: 'varchar', length: 50, nullable: true })
   license_number: string

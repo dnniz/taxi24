@@ -17,7 +17,7 @@ export class DriverRepository {
     return await this.dao.save(entity)
   }
 
-  async update(id: number, entity: DriverAssignmentEntity): Promise<number> {
+  async update(id: number, entity: DriverAssignmentEntity): Promise<any> {
     const result = await this.dao.update(id, entity)
     return result.affected
   }
@@ -30,5 +30,11 @@ export class DriverRepository {
     entity: DriverAssignmentEntity,
   ): Promise<DriverAssignmentEntity[]> {
     return await this.dao.find({ where: { ...entity } })
+    // return await this.dao.find({
+    //   where: {
+    //     available: entity.available,
+    //     driver_assignment_id: entity.driver_assignment_id,
+    //   },
+    // })
   }
 }

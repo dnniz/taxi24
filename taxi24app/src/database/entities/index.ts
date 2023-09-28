@@ -1,4 +1,4 @@
-export * from './controller.entity'
+export * from './driver.entity'
 export * from './passenger.entity'
 export * from './driverAssignment.entity'
 export * from './passenger.entity'

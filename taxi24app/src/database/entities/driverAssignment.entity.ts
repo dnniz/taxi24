@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm'
-import { ControllerEntity } from './controller.entity'
+import { DriverEntity } from './driver.entity'
 import { VehicleUnitEntity } from './vehicleUnit.entity'
 
 @Entity('driver_assignment')
@@ -13,16 +13,16 @@ export class DriverAssignmentEntity {
   @PrimaryGeneratedColumn()
   driver_assignment_id?: number
 
-  @ManyToOne(() => ControllerEntity, { eager: true })
-  @JoinColumn({ name: 'controller_id' })
-  controller?: ControllerEntity
+  @ManyToOne(() => DriverEntity, { eager: true })
+  @JoinColumn({ name: 'driver_id' })
+  driver?: DriverEntity
 
   @ManyToOne(() => VehicleUnitEntity, { eager: false })
   @JoinColumn({ name: 'vehicle_unit_id' })
   vehicle_unit?: VehicleUnitEntity
 
-  @Column({ type: 'varchar', length: 255, nullable: true })
-  current_location?: string
+  // @Column({ type: 'varchar', length: 255, nullable: true })
+  // current_location?: string
 
   @Column({ type: 'boolean' })
   available?: boolean

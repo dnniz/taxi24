@@ -38,4 +38,14 @@ export class DriverService {
 
     return new ResponseDto(mapDriverEntityToDto(result), 'Driver Found')
   }
+
+  async searchNearByDrivers(): Promise<driverResponseDto[]> {
+    const result = await this.driverRepository.findBySpecification({
+      available: true,
+    })
+
+    if (result.length === 0) return []
+
+    return result.map((x) => mapDriverEntityToDto(x))
+  }
 }

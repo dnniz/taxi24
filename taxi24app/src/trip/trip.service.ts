@@ -27,7 +27,7 @@ export class TripService {
       {
         state: tripStatus.IN_PROGRESS,
       },
-      ['driver_assignment.controller', 'passenger'],
+      ['driver_assignment.driver', 'passenger'],
     )
 
     if (result.length === 0) return []

@@ -6,8 +6,8 @@ export const mapDriverEntityToDto = (
 ): driverResponseDto => {
   return {
     driverId: entity.driver_assignment_id,
-    licenseNumber: entity.controller.license_number,
-    names: entity.controller.name,
-    phoneEnterprise: entity.controller.phone_enterprise_number
+    licenseNumber: entity.driver.license_number,
+    names: entity.driver.name,
+    phoneEnterprise: entity.driver.phone_enterprise_number
   }
 }

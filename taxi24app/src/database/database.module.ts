@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common'
 import { Database } from './database'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import {
-  ControllerEntity,
+  DriverEntity,
   DriverAssignmentEntity,
   LocationEntity,
   PassengerEntity,
@@ -22,7 +22,7 @@ import {
       password: 'Dnnizxkkiero99',
       database: 'taxi24',
       entities: [
-        ControllerEntity,
+        DriverEntity,
         DriverAssignmentEntity,
         LocationEntity,
         PassengerEntity,

@@ -15,12 +15,18 @@ export class PassengerRepository {
     return await this.dao.save(entity)
   }
 
-  async update(id: number, entity: PassengerEntity): Promise<any> {
+  async update(id: number, entity: PassengerEntity): Promise<number> {
     const result = await this.dao.update(id, entity)
     return result.affected
   }
 
-  async findById(passengerId: number): Promise<any> {
+  async findById(passengerId: number): Promise<PassengerEntity | null> {
     return await this.dao.findOneBy({ passenger_id: passengerId })
+  }
+
+  async findBySpecification(
+    entity: PassengerEntity,
+  ): Promise<PassengerEntity[]> {
+    return await this.dao.find({ where: { ...entity } })
   }
 }

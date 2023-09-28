@@ -24,7 +24,7 @@ export class TripEntity {
   @Column({ type: 'varchar', length: 100 })
   state?: string
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', nullable: true })
   start_datetime_trip?: Date
 
   @Column({ type: 'timestamp', nullable: true })

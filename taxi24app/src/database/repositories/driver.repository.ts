@@ -17,7 +17,7 @@ export class DriverRepository {
     return await this.dao.save(entity)
   }
 
-  async update(id: number, entity: DriverAssignmentEntity): Promise<any> {
+  async update(id: number, entity: DriverAssignmentEntity): Promise<number> {
     const result = await this.dao.update(id, entity)
     return result.affected
   }

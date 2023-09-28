@@ -6,12 +6,20 @@ import { mapTripEntityToDto } from './mapper/tripMapper.entity'
 import { tripRequestDto } from './dto/tripRequest.dto'
 import { ResponseDto } from 'src/common/response.dto'
 import { tripStatus } from 'src/common/constants/tripStatus.enum'
+import { responseStatusEnum } from 'src/common/constants/responseStatus.enum'
+import { bookTripRequestDto } from './dto/bookTripRequest.dto'
+import { PassengerRepository } from 'src/database/repositories/passenger.repository'
+import { DriverRepository } from 'src/database/repositories/driver.repository'
 
 @Injectable()
 export class TripService {
   constructor(
     @Inject(inyectionTokens.tripRepository)
     private readonly tripRepository: TripRepository,
+    @Inject(inyectionTokens.driverRepository)
+    private readonly driverRepository: DriverRepository,
+    @Inject(inyectionTokens.passengerRepository)
+    private readonly passengerRepository: PassengerRepository,
   ) {}
 
   async searchInProgressTrip(): Promise<tripResponseDto[]> {
@@ -36,7 +44,7 @@ export class TripService {
       return new ResponseDto(
         tripId,
         'Trip not found - no records was updated',
-        2,
+        responseStatusEnum.Warning,
       )
 
     return new ResponseDto(tripId, 'Trip completed!')
@@ -51,7 +59,7 @@ export class TripService {
       return new ResponseDto(
         tripId,
         'Trip not found - no records was updated',
-        2,
+        responseStatusEnum.Warning,
       )
 
     return new ResponseDto(tripId, 'Trip in progress!')
@@ -67,9 +75,27 @@ export class TripService {
       return new ResponseDto(
         request,
         'Trip not found - Any register was updated',
-        2,
+        responseStatusEnum.Warning,
       )
 
     return new ResponseDto(request, 'Trip updated')
+  }
+
+  async bookTrip(
+    request: bookTripRequestDto,
+  ): Promise<ResponseDto<tripRequestDto>> {
+    const { driverId, passengerId } = request
+
+    const driver = await this.driverRepository.findById(driverId)
+    const passenger = await this.passengerRepository.findById(passengerId)
+
+    const trip = await this.tripRepository.create({
+      driver_assignment: driver,
+      passenger: passenger,
+      state: tripStatus.PENDING,
+      start_datetime_trip: new Date(),
+    })
+
+    return new ResponseDto(mapTripEntityToDto(trip), 'requested Trip!')
   }
 }

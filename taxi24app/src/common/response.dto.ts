@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { responseStatusEnum } from './constants/responseStatus.enum'
 
 export class ResponseDto<T> {
   @ApiProperty()
@@ -10,7 +11,11 @@ export class ResponseDto<T> {
   @ApiProperty({ default: 1, description: 'Código de error' })
   errorCode: number
 
-  constructor(data: T, message: string = '', errorCode: number = 1) {
+  constructor(
+    data: T,
+    message: string = '',
+    errorCode: number = responseStatusEnum.Success,
+  ) {
     this.data = data
     this.message = message
     this.errorCode = errorCode

@@ -17,9 +17,9 @@ import {
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'postgres',
-      password: 'Dnnizxkkiero99',
-      database: 'taxi24',
+      username: '',
+      password: '',
+      database: '',
       entities: [
         DriverEntity,
         DriverAssignmentEntity,

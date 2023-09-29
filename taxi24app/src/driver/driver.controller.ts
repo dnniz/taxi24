@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, Param } from '@nestjs/common'
+import { Controller, Get, HttpCode, Param, Query } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { ResponseDto } from 'src/common/response.dto'
 import { driverResponseDto } from './dto/driverResponse.dto'
@@ -41,11 +41,28 @@ export class DriverController {
   async findNearBy(
     @Param('lat') latitude: string,
     @Param('long') longitude: string,
+    @Query('radiusInKms') radiusInKms: number,
   ): Promise<ResponseDto<driverResponseDto[]>> {
     const drivers = await this.driverService.searchNearByDrivers(
       latitude,
       longitude,
+      radiusInKms,
     )
-    return new ResponseDto(drivers, 'Drivers nearby')
+    return new ResponseDto(drivers, 'Drivers nearby by radius kilometers')
+  }
+
+  @Get('/closest/latitude/:lat/longitude/:long')
+  @HttpCode(200)
+  async closestNearBy(
+    @Param('lat') latitude: string,
+    @Param('long') longitude: string,
+    @Query('limit') limit: number,
+  ): Promise<ResponseDto<driverResponseDto[]>> {
+    const drivers = await this.driverService.searchClosestDrivers(
+      latitude,
+      longitude,
+      limit,
+    )
+    return new ResponseDto(drivers, 'Drivers closest by limit closest')
   }
 }

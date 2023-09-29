@@ -4,6 +4,7 @@ import { inyectionTokens } from 'src/database/repositories/inyections-tokens'
 import { driverResponseDto } from './dto/driverResponse.dto'
 import { mapDriverEntityToDto } from './mapper/driverMapper.entity'
 import { ResponseDto } from 'src/common/response.dto'
+import dayjs from 'dayjs'
 
 @Injectable()
 export class DriverService {
@@ -42,23 +43,66 @@ export class DriverService {
   async searchNearByDrivers(
     latitud: string,
     longitud: string,
+    radiusInKms: number,
   ): Promise<driverResponseDto[]> {
-    const nearRadioLocation = 3000
-    const historyDriversNearBy = await this.driverRepository.searchNearLocation(
-      latitud,
-      longitud,
-      nearRadioLocation,
-    )
+
+    const historyDriversNearBy =
+      await this.driverRepository.searchNearbyLocationRadio(
+        latitud,
+        longitud,
+        this.calculateRadiusInDegrees(radiusInKms),
+        this.availableLocationDatetime(),
+      )
 
     const nearByDriversIds = historyDriversNearBy.map(
       (x) => x.driver_assignment_id,
     )
 
     const nearByDrivers =
-      await this.driverRepository.findAllByIds(nearByDriversIds)
+      await this.driverRepository.findAllAvailableByIds(nearByDriversIds)
 
     if (nearByDrivers.length === 0) return []
 
     return nearByDrivers.map((x) => mapDriverEntityToDto(x))
+  }
+
+  async searchClosestDrivers(
+    latitud: string,
+    longitud: string,
+    limit: number,
+  ): Promise<driverResponseDto[]> {
+
+    const historyDriversNearBy =
+      await this.driverRepository.searchClosestLocation(
+        latitud,
+        longitud,
+        limit,
+        this.availableLocationDatetime(),
+      )
+
+    const nearByDriversIds = historyDriversNearBy.map(
+      (x) => x.driver_assignment_id,
+    )
+
+    const nearByDrivers =
+      await this.driverRepository.findAllAvailableByIds(nearByDriversIds)
+
+    if (nearByDrivers.length === 0) return []
+
+    return nearByDrivers.map((x) => mapDriverEntityToDto(x))
+  }
+
+  private availableLocationDatetime = (): string => {
+    const now = dayjs()
+
+    const lastAvailableLocationTime = now.subtract(2, 'minute')
+
+    return lastAvailableLocationTime.format('YYYY-MM-DD HH:mm:ss')
+  }
+
+  private calculateRadiusInDegrees = (radiusInKms: number) : number => {
+    const KILOMETERS_TO_DEGREES = 111.32
+
+    return (radiusInKms * 1000) / KILOMETERS_TO_DEGREES
   }
 }

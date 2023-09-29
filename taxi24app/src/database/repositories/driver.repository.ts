@@ -32,39 +32,51 @@ export class DriverRepository {
     return await this.dao.find({ where: { ...entity } })
   }
 
-  async findAllByIds(driversIds: number[]): Promise<DriverAssignmentEntity[]> {
+  async findAllAvailableByIds(
+    driversIds: number[],
+  ): Promise<DriverAssignmentEntity[]> {
     return await this.dao.find({
       where: {
         driver_assignment_id: In(driversIds),
+        available: true,
       },
     })
   }
 
-  async searchNearLocation(
+  async searchNearbyLocationRadio(
     latitud: string,
     longitud: string,
-    radioInKilometers: number,
+    radiusInDegrees: number,
+    availableLocationTime: string,
   ): Promise<DriverAssignmentEntity[]> {
-    const location = `POINT(${longitud} ${latitud})` //SRID=4326;
-    const lastAvailableLocationTime = new Date()
-    lastAvailableLocationTime.setMinutes(
-      lastAvailableLocationTime.getMinutes() - 2,
-    )
-    const formattedDateTime = lastAvailableLocationTime
-      .toISOString()
-      .slice(0, 19)
-      .replace('T', ' ')
-
-    const KILOMETERS_TO_DEGREES = 111.32
-
-    const radioInDegrees = radioInKilometers / KILOMETERS_TO_DEGREES
-
-    const query = `
+    const queryGetDriversWithinRadius = `
     SELECT *
     FROM history_driver_location AS location
-    WHERE ST_Distance(location.coordenate, ST_GeomFromText('${location}', 4326)) < ${radioInDegrees}
-    AND location.location_datetime >= '${formattedDateTime}';`
+    WHERE ST_Distance(
+      ST_Transform(location.coordenate, 2163),
+      ST_Transform(ST_GeomFromText('POINT(${longitud} ${latitud})', 4326), 2163)
+    ) < ${radiusInDegrees}
+    AND location.location_datetime >= '${availableLocationTime}';`
 
-    return await this.dao.query(query)
+    return await this.dao.query(queryGetDriversWithinRadius)
+  }
+
+  async searchClosestLocation(
+    latitud: string,
+    longitud: string,
+    limit: number,
+    availableLocationTime: string,
+  ): Promise<DriverAssignmentEntity[]> {
+    const queryGetDriversWithinTheClosestOnes = `
+    SELECT *
+    FROM history_driver_location AS location
+    WHERE location.location_datetime >= '${availableLocationTime}'
+    ORDER BY ST_Distance(
+      ST_Transform(location.coordenate, 2163),
+      ST_Transform(ST_GeomFromText('POINT(${longitud} ${latitud})', 4326), 2163)
+    )
+    LIMIT ${limit};`
+
+    return await this.dao.query(queryGetDriversWithinTheClosestOnes)
   }
 }

@@ -12,20 +12,13 @@ export class DriverController {
   @Get('/')
   @HttpCode(200)
   async allDrivers(): Promise<ResponseDto<driverResponseDto[]>> {
-    const drivers = await this.driverService.searchAllDrivers()
-
-    return new ResponseDto(drivers, 'Listado de todos los Conductores')
+    return await this.driverService.searchAllDrivers()
   }
 
   @Get('/available')
   @HttpCode(200)
   async findAvailableDrivers(): Promise<ResponseDto<driverResponseDto[]>> {
-    const drivers = await this.driverService.searchAvailableDrivers()
-
-    return new ResponseDto(
-      drivers,
-      'Conductores disponibles obtenidos con éxito',
-    )
+    return await this.driverService.searchAvailableDrivers()
   }
 
   @Get('/:driverId')
@@ -43,12 +36,11 @@ export class DriverController {
     @Param('long') longitude: string,
     @Query('radiusInKms') radiusInKms: number,
   ): Promise<ResponseDto<driverResponseDto[]>> {
-    const drivers = await this.driverService.searchNearByDrivers(
+    return await this.driverService.searchNearByDrivers(
       latitude,
       longitude,
       radiusInKms,
     )
-    return new ResponseDto(drivers, 'Drivers nearby by radius kilometers')
   }
 
   @Get('/closest/latitude/:lat/longitude/:long')
@@ -58,11 +50,10 @@ export class DriverController {
     @Param('long') longitude: string,
     @Query('limit') limit: number,
   ): Promise<ResponseDto<driverResponseDto[]>> {
-    const drivers = await this.driverService.searchClosestDrivers(
+    return await this.driverService.searchClosestDrivers(
       latitude,
       longitude,
       limit,
     )
-    return new ResponseDto(drivers, 'Drivers closest by limit closest')
   }
 }

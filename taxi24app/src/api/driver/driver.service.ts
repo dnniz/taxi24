@@ -5,6 +5,7 @@ import { driverResponseDto } from './dto/driverResponse.dto'
 import { mapDriverEntityToDto } from './mapper/driverMapper.entity'
 import { ResponseDto } from '../../common/response.dto'
 import dayjs from 'dayjs'
+import { responseStatusEnum } from '../../common/constants/responseStatus.enum'
 
 @Injectable()
 export class DriverService {
@@ -13,29 +14,44 @@ export class DriverService {
     private readonly driverRepository: DriverRepository,
   ) {}
 
-  async searchAllDrivers(): Promise<driverResponseDto[]> {
+  async searchAllDrivers(): Promise<ResponseDto<driverResponseDto[]>> {
     const result = await this.driverRepository.findBySpecification({})
 
-    if (result.length === 0) return []
+    if (result.length === 0)
+      return new ResponseDto([], 'No drivers found', responseStatusEnum.Warning)
 
-    return result.map((x) => mapDriverEntityToDto(x))
+    const drivers = result.map((entity) => mapDriverEntityToDto(entity))
+
+    return new ResponseDto(drivers, 'Drivers were Found')
   }
 
-  async searchAvailableDrivers(): Promise<driverResponseDto[]> {
+  async searchAvailableDrivers(): Promise<ResponseDto<driverResponseDto[]>> {
     const result = await this.driverRepository.findBySpecification({
       available: true,
     })
 
-    if (result.length === 0) return []
+    if (result.length === 0)
+      return new ResponseDto(
+        [],
+        'No available drivers found',
+        responseStatusEnum.Warning,
+      )
 
-    return result.map((x) => mapDriverEntityToDto(x))
+    const drivers = result.map((entity) => mapDriverEntityToDto(entity))
+
+    return new ResponseDto(drivers, 'Available drivers were found')
   }
 
   async searchDriverById(id: number): Promise<ResponseDto<driverResponseDto>> {
     const driverNotFound = undefined
     const result = await this.driverRepository.findById(id)
 
-    if (!result) return new ResponseDto(driverNotFound, 'Driver Not Found', 2)
+    if (!result)
+      return new ResponseDto(
+        driverNotFound,
+        'Driver Not Found',
+        responseStatusEnum.Warning,
+      )
 
     return new ResponseDto(mapDriverEntityToDto(result), 'Driver Found')
   }
@@ -44,7 +60,7 @@ export class DriverService {
     latitud: string,
     longitud: string,
     radiusInKms: number,
-  ): Promise<driverResponseDto[]> {
+  ): Promise<ResponseDto<driverResponseDto[]>> {
     const historyDriversNearBy =
       await this.driverRepository.searchNearbyLocationRadio(
         latitud,
@@ -54,22 +70,29 @@ export class DriverService {
       )
 
     const nearByDriversIds = historyDriversNearBy.map(
-      (x) => x.driver_assignment_id,
+      (driver) => driver.driver_assignment_id,
     )
 
     const nearByDrivers =
       await this.driverRepository.findAllAvailableByIds(nearByDriversIds)
 
-    if (nearByDrivers.length === 0) return []
+    if (nearByDrivers.length === 0)
+      return new ResponseDto(
+        [],
+        'Near drivers Not Found',
+        responseStatusEnum.Warning,
+      )
 
-    return nearByDrivers.map((x) => mapDriverEntityToDto(x))
+    const drivers = nearByDrivers.map((entity) => mapDriverEntityToDto(entity))
+
+    return new ResponseDto(drivers, 'Drivers nearby by radius kilometers')
   }
 
   async searchClosestDrivers(
     latitud: string,
     longitud: string,
     limit: number,
-  ): Promise<driverResponseDto[]> {
+  ): Promise<ResponseDto<driverResponseDto[]>> {
     const historyDriversNearBy =
       await this.driverRepository.searchClosestLocation(
         latitud,
@@ -79,15 +102,22 @@ export class DriverService {
       )
 
     const nearByDriversIds = historyDriversNearBy.map(
-      (x) => x.driver_assignment_id,
+      (entity) => entity.driver_assignment_id,
     )
 
     const nearByDrivers =
       await this.driverRepository.findAllAvailableByIds(nearByDriversIds)
 
-    if (nearByDrivers.length === 0) return []
+    if (nearByDrivers.length === 0)
+      return new ResponseDto(
+        [],
+        'Closest drivers Not Found',
+        responseStatusEnum.Warning,
+      )
 
-    return nearByDrivers.map((x) => mapDriverEntityToDto(x))
+    const drivers = nearByDrivers.map((entity) => mapDriverEntityToDto(entity))
+
+    return new ResponseDto(drivers, 'Drivers closest by limit closest')
   }
 
   private availableLocationDatetime = (): string => {

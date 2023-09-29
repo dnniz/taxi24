@@ -13,12 +13,18 @@ export class PassengerService {
     private readonly passengerRepository: PassengerRepository,
   ) {}
 
-  async searchAllPassengers(): Promise<passengerResponseDto[]> {
+  async searchAllPassengers(): Promise<ResponseDto<passengerResponseDto[]>> {
     const result = await this.passengerRepository.findBySpecification({})
 
-    if (result.length === 0) return []
+    if (result.length === 0)
+      return new ResponseDto(
+        [],
+        'No passengers found',
+        responseStatusEnum.Warning,
+      )
 
-    return result.map((x) => mapPassengerEntityToDto(x))
+    const passengers = result.map((entity) => mapPassengerEntityToDto(entity))
+    return new ResponseDto(passengers, 'Passengers were Found')
   }
 
   async searchPassengerById(

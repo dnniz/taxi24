@@ -12,9 +12,7 @@ export class PassengerController {
   @Get('/')
   @HttpCode(200)
   async allPassengers(): Promise<ResponseDto<passengerResponseDto[]>> {
-    const drivers = await this.passengerService.searchAllPassengers()
-
-    return new ResponseDto(drivers, 'Listado de todos los Pasajeros')
+    return await this.passengerService.searchAllPassengers()
   }
 
   @Get('/:passengerId')

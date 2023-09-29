@@ -49,7 +49,7 @@ describe('PassengerController', () => {
           },
         ],
         errorCode: 1,
-        message: 'Listado de todos los Pasajeros',
+        message: 'Passengers were Found',
       }
 
       const result = await controller.allPassengers()

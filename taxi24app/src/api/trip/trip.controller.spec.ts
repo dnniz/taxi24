@@ -148,7 +148,7 @@ describe('TripController', () => {
           },
         ],
         errorCode: 1,
-        message: 'Viajes activos obtenidos con éxito',
+        message: 'Trips in progress were found',
       }
 
       const result = await controller.activeTrips()

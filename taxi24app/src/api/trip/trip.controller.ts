@@ -2,7 +2,6 @@ import { Controller, Get, HttpCode, Post, Param, Body } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { tripResponseDto } from './dto/tripResponse.dto'
 import { ResponseDto } from '../../common/response.dto'
-import { responseStatusEnum } from '../../common/constants/responseStatus.enum'
 import { bookTripRequestDto } from './dto/bookTripRequest.dto'
 import { tripRequestDto } from './dto/tripRequest.dto'
 import { TripService } from './trip.service'
@@ -15,16 +14,7 @@ export class TripController {
   @Get('/inProgress')
   @HttpCode(200)
   async activeTrips(): Promise<ResponseDto<tripResponseDto[]>> {
-    const trips = await this.tripService.searchInProgressTrip()
-
-    if (trips.length === 0)
-      return new ResponseDto(
-        trips,
-        'No se encontraron viajes activos',
-        responseStatusEnum.Error,
-      )
-
-    return new ResponseDto(trips, 'Viajes activos obtenidos con éxito')
+    return await this.tripService.searchInProgressTrip()
   }
 
   @Post('/:tripId/complete')

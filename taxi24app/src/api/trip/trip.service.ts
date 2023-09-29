@@ -22,7 +22,7 @@ export class TripService {
     private readonly passengerRepository: PassengerRepository,
   ) {}
 
-  async searchInProgressTrip(): Promise<tripResponseDto[]> {
+  async searchInProgressTrip(): Promise<ResponseDto<tripResponseDto[]>> {
     const result = await this.tripRepository.findBySpecification(
       {
         state: tripStatus.IN_PROGRESS,
@@ -30,9 +30,16 @@ export class TripService {
       ['driver_assignment.driver', 'passenger'],
     )
 
-    if (result.length === 0) return []
+    if (result.length === 0)
+      return new ResponseDto(
+        [],
+        'No trips in progress found',
+        responseStatusEnum.Warning,
+      )
 
-    return result.map((x) => mapTripEntityToDto(x))
+    const trips = result.map((entity) => mapTripEntityToDto(entity))
+
+    return new ResponseDto(trips, 'Trips in progress were found')
   }
 
   async completeTrip(tripId: number): Promise<ResponseDto<number>> {

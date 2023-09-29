@@ -1,61 +1,33 @@
 
-## Description
+## Documentación Funcional - Entidades
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## [Feature] Near by Drivers :
 
+### Driver Assignment: 
+   - Esta entidad representa a un conductor en ejecución de sus labores.
+   - Donde se tiene enlazado al driver y vehicle_unit como parte de un proceso de asignación.
+   - [available] Se indica que está disponible mediante un flag.
+   - [datetime_assignment] Indica el horario que corresponde para la labor de conducción.
 
-## Preconditions
+### History Driver Location:
+  - Esta es la representación del seguimiento en "tiempo real" de la ubicación del conductor.
+  - [location_datetime] Es la fecha y hora de la ultima actualización de la ubicación del conductor,
+     para este caso se debe considerar que desde el aplicativo del conductor se comunique cada 2 minutos
+     una actualización con las coordenadas del conductor.
+  - Para la busqueda de los Conductores cercanos se toma en cuenta la ultima actualización del conductor y sus coordenadas
+    considerando que sólo se tomarán en cuenta los conductores que tiene una actualización mayo o igual al tiempo actual
+    menos 2 minutos, para ser considerado como habil para un viaje, más no disponible. Posteriormente se filtra si se encuentra
+    disponible con el flag [available].
+  - [coordenate] Ubicación del conductor.
 
-DATABASE: postgresql version 12 min
-POSTGIS: installation https://postgis.net/workshops/postgis-intro/installation.html
+### Trip:
+  - Esta entidad es la que permite generar y hacer seguimiento de las solicitudes de viaje y sus diferentes estados.
+  - [state]:
+      -     PENDING
+      -     IN_PROGRESS,
+      -     COMPLETE
+  - [gps] Propiedades para las coordenas de salida y destino.
 
-script execution:
-SELECT postgis_full_version();
-CREATE EXTENSION IF NOT EXISTS postgis;
-
-
-## Installation
-
-```bash
-$ npm install
-```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 

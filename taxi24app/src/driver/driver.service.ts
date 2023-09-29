@@ -45,7 +45,6 @@ export class DriverService {
     longitud: string,
     radiusInKms: number,
   ): Promise<driverResponseDto[]> {
-
     const historyDriversNearBy =
       await this.driverRepository.searchNearbyLocationRadio(
         latitud,
@@ -71,7 +70,6 @@ export class DriverService {
     longitud: string,
     limit: number,
   ): Promise<driverResponseDto[]> {
-
     const historyDriversNearBy =
       await this.driverRepository.searchClosestLocation(
         latitud,
@@ -100,7 +98,7 @@ export class DriverService {
     return lastAvailableLocationTime.format('YYYY-MM-DD HH:mm:ss')
   }
 
-  private calculateRadiusInDegrees = (radiusInKms: number) : number => {
+  private calculateRadiusInDegrees = (radiusInKms: number): number => {
     const KILOMETERS_TO_DEGREES = 111.32
 
     return (radiusInKms * 1000) / KILOMETERS_TO_DEGREES

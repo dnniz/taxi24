@@ -21,9 +21,6 @@ export class DriverAssignmentEntity {
   @JoinColumn({ name: 'vehicle_unit_id' })
   vehicle_unit?: VehicleUnitEntity
 
-  // @Column({ type: 'varchar', length: 255, nullable: true })
-  // current_location?: string
-
   @Column({ type: 'boolean' })
   available?: boolean
 

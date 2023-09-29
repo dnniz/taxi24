@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { DriverController } from './driver.controller'
 import { DriverService } from './driver.service'
 import { driverResponseDto } from './dto/driverResponse.dto'
-// import { DriverRepository } from '../infrastructure/repositories/driver.repository'
 import { ResponseDto } from '../common/response.dto'
 import { DriverAssignmentEntity } from '../infrastructure/entities'
 
@@ -74,14 +73,6 @@ describe('DriverController', () => {
 
       expect(result).toEqual(drivers)
     })
-
-    // it('should return an empty array if no drivers are found', async () => {
-    //   jest.spyOn(service, 'searchAllDrivers').mockResolvedValue([])
-
-    //   const result = await controller.allDrivers()
-
-    //   expect(result).toEqual([])
-    // })
   })
 
   afterEach(() => {

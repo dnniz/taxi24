@@ -9,6 +9,6 @@ export const mapTripEntityToDto = (entity: TripEntity): tripResponseDto => {
     state: entity.state,
     driver: mapDriverEntityToDto(entity.driver_assignment),
     startTripDatetime: entity.start_datetime_trip,
-    passenger: mapPassengerEntityToDto(entity.passenger)
+    passenger: mapPassengerEntityToDto(entity.passenger),
   }
 }

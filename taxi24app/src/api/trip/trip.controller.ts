@@ -1,11 +1,11 @@
 import { Controller, Get, HttpCode, Post, Param, Body } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
-import { TripService } from './trip.service'
 import { tripResponseDto } from './dto/tripResponse.dto'
-import { ResponseDto } from '../common/response.dto'
-import { responseStatusEnum } from 'src/common/constants/responseStatus.enum'
+import { ResponseDto } from '../../common/response.dto'
+import { responseStatusEnum } from '../../common/constants/responseStatus.enum'
 import { bookTripRequestDto } from './dto/bookTripRequest.dto'
 import { tripRequestDto } from './dto/tripRequest.dto'
+import { TripService } from './trip.service'
 
 @ApiTags('trips')
 @Controller('trips')

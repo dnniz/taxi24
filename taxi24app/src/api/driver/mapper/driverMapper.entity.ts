@@ -1,4 +1,4 @@
-import { DriverAssignmentEntity } from '../../infrastructure/entities'
+import { DriverAssignmentEntity } from '../../../infrastructure/entities'
 import { driverResponseDto } from '../dto/driverResponse.dto'
 
 export const mapDriverEntityToDto = (

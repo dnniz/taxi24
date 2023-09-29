@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { DriverController } from './driver.controller'
 import { DriverService } from './driver.service'
 import { driverResponseDto } from './dto/driverResponse.dto'
-import { ResponseDto } from '../common/response.dto'
-import { DriverAssignmentEntity } from '../infrastructure/entities'
+import { ResponseDto } from '../../common/response.dto'
+import { DriverAssignmentEntity } from '../../infrastructure/entities'
+import { DriverController } from './driver.controller'
 
 describe('DriverController', () => {
   let controller: DriverController
@@ -38,8 +38,10 @@ describe('DriverController', () => {
                     vehicle_unit_id: 1,
                   },
                   available: true,
-                  start_datetime_assignment: new Date(),
-                  end_datetime_assignment: new Date(),
+                  start_datetime_assignment: new Date(
+                    '2023-09-29T04:38:31.967Z',
+                  ),
+                  end_datetime_assignment: new Date('2023-09-29T04:38:31.967Z'),
                 },
               ]
               return mock
@@ -54,7 +56,7 @@ describe('DriverController', () => {
     controller = module.get<DriverController>(DriverController)
   })
 
-  describe('allDrivers', () => {
+  describe('all Drivers', () => {
     it('should return an array of drivers', async () => {
       const drivers: ResponseDto<driverResponseDto[]> = {
         data: [

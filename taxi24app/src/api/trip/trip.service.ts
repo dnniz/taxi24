@@ -1,15 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { inyectionTokens } from '../infrastructure/repositories/inyections-tokens'
-import { TripRepository } from '../infrastructure/repositories/trip.repository'
+import { TripRepository } from '../../infrastructure/repositories/trip.repository'
 import { tripResponseDto } from './dto/tripResponse.dto'
 import { mapTripEntityToDto } from './mapper/tripMapper.entity'
 import { tripRequestDto } from './dto/tripRequest.dto'
-import { ResponseDto } from '../common/response.dto'
-import { tripStatus } from 'src/common/constants/tripStatus.enum'
-import { responseStatusEnum } from 'src/common/constants/responseStatus.enum'
+import { ResponseDto } from '../../common/response.dto'
+import { tripStatus } from '../../common/constants/tripStatus.enum'
+import { responseStatusEnum } from '../../common/constants/responseStatus.enum'
 import { bookTripRequestDto } from './dto/bookTripRequest.dto'
-import { PassengerRepository } from '../infrastructure/repositories/passenger.repository'
-import { DriverRepository } from '../infrastructure/repositories/driver.repository'
+import { PassengerRepository } from '../../infrastructure/repositories/passenger.repository'
+import { DriverRepository } from '../../infrastructure/repositories/driver.repository'
+import { inyectionTokens } from '../../infrastructure/repositories/inyections-tokens'
 
 @Injectable()
 export class TripService {

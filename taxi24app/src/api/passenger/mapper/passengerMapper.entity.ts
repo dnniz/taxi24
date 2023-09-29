@@ -1,4 +1,5 @@
-import { PassengerEntity } from '../../infrastructure/entities'
+// import { PassengerEntity } from '../../infrastructure/entities'
+import { PassengerEntity } from '../../../infrastructure/entities'
 import { passengerResponseDto } from '../dto/passengerResponse.dto'
 
 export const mapPassengerEntityToDto = (

@@ -1,10 +1,10 @@
 import { Injectable, Inject } from '@nestjs/common'
-import { inyectionTokens } from '../infrastructure/repositories/inyections-tokens'
-import { PassengerRepository } from '../infrastructure/repositories/passenger.repository'
+import { inyectionTokens } from '../../infrastructure/repositories/inyections-tokens'
+import { PassengerRepository } from '../../infrastructure/repositories/passenger.repository'
 import { passengerResponseDto } from './dto/passengerResponse.dto'
 import { mapPassengerEntityToDto } from './mapper/passengerMapper.entity'
-import { ResponseDto } from '../common/response.dto'
-import { responseStatusEnum } from 'src/common/constants/responseStatus.enum'
+import { ResponseDto } from '../../common/response.dto'
+import { responseStatusEnum } from '../../common/constants/responseStatus.enum'
 
 @Injectable()
 export class PassengerService {

@@ -1,6 +1,6 @@
 import { Controller, Get, HttpCode, Param, Query } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
-import { ResponseDto } from '../common/response.dto'
+import { ResponseDto } from '../../common/response.dto'
 import { driverResponseDto } from './dto/driverResponse.dto'
 import { DriverService } from './driver.service'
 

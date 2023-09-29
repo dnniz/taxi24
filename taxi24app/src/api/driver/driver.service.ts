@@ -1,9 +1,9 @@
 import { Injectable, Inject } from '@nestjs/common'
-import { DriverRepository } from '../infrastructure/repositories/driver.repository'
-import { inyectionTokens } from '../infrastructure/repositories/inyections-tokens'
+import { DriverRepository } from '../../infrastructure/repositories/driver.repository'
+import { inyectionTokens } from '../../infrastructure/repositories/inyections-tokens'
 import { driverResponseDto } from './dto/driverResponse.dto'
 import { mapDriverEntityToDto } from './mapper/driverMapper.entity'
-import { ResponseDto } from '../common/response.dto'
+import { ResponseDto } from '../../common/response.dto'
 import dayjs from 'dayjs'
 
 @Injectable()

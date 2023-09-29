@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common'
-import { TripController } from './trip.controller'
-import { TripService } from './trip.service'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import {
   DriverAssignmentEntity,
   PassengerEntity,
   TripEntity,
-} from '../infrastructure/entities'
-import { inyectionTokens } from '../infrastructure/repositories/inyections-tokens'
-import { TripRepository } from '../infrastructure/repositories/trip.repository'
-import { DriverRepository } from '../infrastructure/repositories/driver.repository'
-import { PassengerRepository } from '../infrastructure/repositories/passenger.repository'
+} from '../../infrastructure/entities'
+import { inyectionTokens } from '../../infrastructure/repositories/inyections-tokens'
+import { TripRepository } from '../../infrastructure/repositories/trip.repository'
+import { DriverRepository } from '../../infrastructure/repositories/driver.repository'
+import { PassengerRepository } from '../../infrastructure/repositories/passenger.repository'
+import { TripController } from './trip.controller'
+import { TripService } from './trip.service'
 
 @Module({
   imports: [

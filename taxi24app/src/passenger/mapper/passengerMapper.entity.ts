@@ -1,4 +1,4 @@
-import { PassengerEntity } from 'src/database/entities'
+import { PassengerEntity } from '../../infrastructure/entities'
 import { passengerResponseDto } from '../dto/passengerResponse.dto'
 
 export const mapPassengerEntityToDto = (

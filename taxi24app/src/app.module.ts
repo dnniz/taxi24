@@ -4,10 +4,10 @@ import { AppService } from './app.service'
 import { DriverModule } from './driver/driver.module'
 import { PassengerModule } from './passenger/passenger.module'
 import { TripModule } from './trip/trip.module'
-import { DatabaseModule } from './database/database.module'
+import { InfrastructureModule } from './infrastructure/infrastructure.module'
 
 @Module({
-  imports: [DriverModule, PassengerModule, TripModule, DatabaseModule],
+  imports: [DriverModule, PassengerModule, TripModule, InfrastructureModule],
   controllers: [AppController],
   providers: [AppService],
 })

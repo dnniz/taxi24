@@ -1,4 +1,4 @@
-import { TripEntity } from 'src/database/entities'
+import { TripEntity } from '../../infrastructure/entities'
 import { tripResponseDto } from '../dto/tripResponse.dto'
 import { mapDriverEntityToDto } from 'src/driver/mapper/driverMapper.entity'
 import { mapPassengerEntityToDto } from 'src/passenger/mapper/passengerMapper.entity'

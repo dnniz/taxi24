@@ -6,11 +6,11 @@ import {
   DriverAssignmentEntity,
   PassengerEntity,
   TripEntity,
-} from 'src/database/entities'
-import { inyectionTokens } from 'src/database/repositories/inyections-tokens'
-import { TripRepository } from 'src/database/repositories/trip.repository'
-import { DriverRepository } from 'src/database/repositories/driver.repository'
-import { PassengerRepository } from 'src/database/repositories/passenger.repository'
+} from '../infrastructure/entities'
+import { inyectionTokens } from '../infrastructure/repositories/inyections-tokens'
+import { TripRepository } from '../infrastructure/repositories/trip.repository'
+import { DriverRepository } from '../infrastructure/repositories/driver.repository'
+import { PassengerRepository } from '../infrastructure/repositories/passenger.repository'
 
 @Module({
   imports: [

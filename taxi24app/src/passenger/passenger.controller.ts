@@ -1,7 +1,7 @@
 import { Controller, Get, HttpCode, Param } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { PassengerService } from './passenger.service'
-import { ResponseDto } from 'src/common/response.dto'
+import { ResponseDto } from '../common/response.dto'
 import { passengerResponseDto } from './dto/passengerResponse.dto'
 
 @ApiTags('passengers')

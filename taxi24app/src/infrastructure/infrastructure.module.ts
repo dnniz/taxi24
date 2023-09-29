@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common'
-import { Database } from './database'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import {
   DriverEntity,
@@ -13,7 +12,6 @@ import {
 } from './entities'
 
 @Module({
-  providers: [Database],
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -38,4 +36,4 @@ import {
   ],
   exports: [TypeOrmModule],
 })
-export class DatabaseModule {}
+export class InfrastructureModule {}

@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
 import { DriverController } from './driver.controller'
 import { DriverService } from './driver.service'
-import { inyectionTokens } from 'src/database/repositories/inyections-tokens'
-import { DriverRepository } from 'src/database/repositories/driver.repository'
+import { inyectionTokens } from '../infrastructure/repositories/inyections-tokens'
+import { DriverRepository } from '../infrastructure/repositories/driver.repository'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { DriverAssignmentEntity } from 'src/database/entities'
+import { DriverAssignmentEntity } from '../infrastructure/entities'
 
 @Module({
   imports: [TypeOrmModule.forFeature([DriverAssignmentEntity])],

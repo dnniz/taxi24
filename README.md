@@ -19,17 +19,17 @@ Taxi24 es una nueva startup que quiere revolucionar la industria del transporte 
 taxi24app\SCRIPTS\backup-database.sql
 ```
 
-### 2 Ejecución de SCRIPT configuración de Postgis
+### 2. Ejecución de SCRIPT configuración de Postgis
 ```shell
 taxi24app\SCRIPTS\postgis-config.sql
 ```
-### 3 Ejecución de SCRIPT Backup BD
+### 3. Ejecución de SCRIPT Backup BD
 
 ```shell
 taxi24app\SCRIPTS\backup-database.sql
 ```
 
-### 4 Modificación de Conexion a BD
+### 4. Modificación de Conexion a BD
 
 - Ubicar el archivo:
 
@@ -47,20 +47,31 @@ database: ''
 
 ## Ejecución del proyecto
 
-### 1 Ejecutar el comando
+### 1. Ejecutar el comando
 ```shell
 npm i
 ```
-### 2 Ejecutar el comando
+### 2. Ejecutar el comando
 
 ```shell
 npm run start:dev
 ```
 
-### 3  Para ejecución de Unit Test
+### 3.  Para ejecución de Unit Test
 ```shell
 npm run test
 ```
 
+## Consideraciones:
+
+### 1. Pruebas para listado de conductores cercanos.
+
+- Ejecutar siguiente SCRIPT, para simular la actualización de la ubicación actual de los DRIVERS.
+
+```shell
+UPDATE public.history_driver_location
+SET location_datetime = CURRENT_TIMESTAMP
+where location_datetime < CURRENT_TIMESTAMP
+```
 
 
